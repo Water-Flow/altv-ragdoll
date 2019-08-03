@@ -15,7 +15,6 @@ export default class Ragdoll {
   }
 
   start() {
-    this.setRagdoll(true);
     this.doRagdoll();
   }
 
@@ -33,14 +32,25 @@ export default class Ragdoll {
   }
 
   doRagdoll() {
-    let prevent = false;
+    // prevent if player is in any vehicle
+    if (game.isPedInAnyVehicle(this.localPlayer.scriptID, false)) {
 
-    if (game.isPedInAnyVehicle(this.localPlayer.scriptID, false) && !game.isPedOnAnyBike(this.localPlayer.scriptID)) {
-      prevent = true;
+      // but not on bikes
+      if (!game.isPedOnAnyBike(this.localPlayer.scriptID)) {
+        return;
+      }
+
+    } else {
+
+      const currentWeapon = game.getSelectedPedWeapon(this.localPlayer.scriptID);
+
+      // prevent if player is holding weapon and isn't jumping or climbing
+      if (game.getWeaponClipSize(currentWeapon) > 0 && !game.isPedJumping(this.localPlayer.scriptID) && !game.isPlayerClimbing(this.localPlayer.scriptID)) {
+        return;
+      }
+
     }
 
-    if (prevent === false) {
-      game.setPedToRagdoll(this.localPlayer.scriptID, 1000, 1000, 0, false, false, false);
-    }
+    game.setPedToRagdoll(this.localPlayer.scriptID, 1000, 1000, 0, false, false, false);
   }
 }
