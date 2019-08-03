@@ -5,7 +5,7 @@ export default class Ragdoll {
   constructor() {
     this.shift = false;
     this.ragdoll = false;
-    this.localPlayer = alt.getLocalPlayer();
+    this.localPlayer = alt.Player.local;
 
     alt.on('update', () => {
       if (this.shift && this.ragdoll) {
