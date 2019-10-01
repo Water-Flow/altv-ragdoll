@@ -7,7 +7,7 @@ export default class Ragdoll {
     this.shift = false;
     this.ragdoll = false;
 
-    alt.on('update', () => {
+    alt.everyTick(() => {
       if (this.shift && this.ragdoll) {
         this.doRagdoll();
       }
