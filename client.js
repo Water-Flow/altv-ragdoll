@@ -1,7 +1,8 @@
 import * as alt from 'alt';
-import Ragdoll from 'ragdoll';
 
-const ragdoll = new Ragdoll();
+import Ragdoll from './ragdoll';
+
+const ragdoll = new Ragdoll(alt.Player.local);
 const ragdollKey = 'R';
 const shiftKey = 16;
 
